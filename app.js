@@ -18,9 +18,9 @@ app.get('/info', function (req, res) {
 
 app.post('/command', function(req, res) {
 
-    return {
-        command: 'fire'
-    }
+    return res.json( {
+        command: 'turn-left'
+    });
 });
 
 // catch 404 and forward to error handler
