@@ -3,7 +3,13 @@ var path = require('path');
 var logger = require('morgan');
 var cors = require('cors');
 var app = express();
+var bodyParser = require('body-parser');
 
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
 
 app.use(cors());
 // uncomment after placing your favicon in /public
@@ -16,16 +22,23 @@ app.options('*', cors()); // include before other routes
 app.get('/info', function (req, res) {
     res.json(
         {
-            "name": "tired one2",
+            "name": "tired one22",
             "owner": "Channel 2"
         });
 });
 
 app.post('/command', function(req, res) {
 
-    res.json( {
-        command: 'turn-left'
-    });
+    if(req.body.enemies.length === 0) {
+        res.json( {
+            command: 'pass'
+        });
+    } else {
+        res.json( {
+            command: 'turn-left'
+        });
+    }
+
 });
 
 // catch 404 and forward to error handler
