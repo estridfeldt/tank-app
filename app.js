@@ -30,12 +30,39 @@ app.get('/info', function (req, res) {
 app.post('/command', function(req, res) {
 
     if(req.body.enemies[0] !== undefined) {
-        res.json( {
-            command: 'pass'
-        });
+        if(req.body.you.x === req.body.enemies[0].x) {
+            if(req.body.you.direction === 'top' && (req.body.enemies[0].y < req.body.you.y)) {
+                res.json( {
+                    command: 'fire'
+                });
+            } else if(req.body.you.direction === 'bottom' && (req.body.enemies[0].y > req.body.you.y)) {
+                res.json( {
+                    command: 'fire'
+                });
+            } else {
+                res.json( {
+                    command: 'turn-left'
+                });
+            }
+        }
+        if(req.body.you.y === req.body.enemies[0].y) {
+            if(req.body.you.direction === 'left' && (req.body.enemies[0].y < req.body.you.y)) {
+                res.json( {
+                    command: 'fire'
+                });
+            } else if(req.body.you.direction === 'right' && (req.body.enemies[0].y > req.body.you.y)) {
+                res.json( {
+                    command: 'fire'
+                });
+            } else {
+                res.json( {
+                    command: 'turn-left'
+                });
+            }
+        }
     } else {
         res.json( {
-            command: 'turn-left'
+            command: 'pass'
         });
     }
 
