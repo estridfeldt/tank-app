@@ -6,7 +6,7 @@ var app = express();
 var bodyParser = require('body-parser');
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 
 // parse application/json
 app.use(bodyParser.json());
@@ -27,41 +27,81 @@ app.get('/info', function (req, res) {
         });
 });
 
-app.post('/command', function(req, res) {
+app.post('/command', function (req, res) {
 
-    if(req.body.enemies[0] !== undefined) {
-        if(req.body.you.x === req.body.enemies[0].x) {
-            if(req.body.you.direction === 'top' && (req.body.enemies[0].y < req.body.you.y)) {
-                res.json( {
+    if (req.body.enemies[0] !== undefined) {
+        if (req.body.you.x === req.body.enemies[0].x) {
+            if (req.body.you.direction === 'top' && (req.body.enemies[0].y < req.body.you.y)) {
+                res.json({
                     command: 'fire'
                 });
-            } else if(req.body.you.direction === 'bottom' && (req.body.enemies[0].y > req.body.you.y)) {
-                res.json( {
+            } else if (req.body.you.direction === 'bottom' && (req.body.enemies[0].y > req.body.you.y)) {
+                res.json({
                     command: 'fire'
-                });
-            } else {
-                res.json( {
-                    command: 'turn-left'
                 });
             }
         }
-        if(req.body.you.y === req.body.enemies[0].y) {
-            if(req.body.you.direction === 'left' && (req.body.enemies[0].x < req.body.you.x)) {
-                res.json( {
+        if (req.body.you.y === req.body.enemies[0].y) {
+            if (req.body.you.direction === 'left' && (req.body.enemies[0].x < req.body.you.x)) {
+                res.json({
                     command: 'fire'
                 });
-            } else if(req.body.you.direction === 'right' && (req.body.enemies[0].x > req.body.you.x)) {
-                res.json( {
+            } else if (req.body.you.direction === 'right' && (req.body.enemies[0].x > req.body.you.x)) {
+                res.json({
                     command: 'fire'
                 });
-            } else {
-                res.json( {
+            }
+        }
+        if(req.body.enemies[0].x < req.body.you.x && req.body.enemies[0].y < req.body.you.y) {
+            if(req.body.you.direction === 'right') {
+                res.json({
+                    command: 'turn-left'
+                });
+            }
+            if(req.body.you.direction === 'bottom') {
+                res.json({
+                    command: 'turn-right'
+                });
+            }
+        }
+        if(req.body.enemies[0].x > req.body.you.x && req.body.enemies[0].y < req.body.you.y) {
+            if(req.body.you.direction === 'bottom') {
+                res.json({
+                    command: 'turn-left'
+                });
+            }
+            if(req.body.you.direction === 'right') {
+                res.json({
+                    command: 'turn-right'
+                });
+            }
+        }
+        if(req.body.enemies[0].x < req.body.you.x && req.body.enemies[0].y > req.body.you.y) {
+            if(req.body.you.direction === 'top') {
+                res.json({
+                    command: 'turn-left'
+                });
+            }
+            if(req.body.you.direction === 'right') {
+                res.json({
+                    command: 'turn-right'
+                });
+            }
+        }
+        if(req.body.enemies[0].x > req.body.you.x && req.body.enemies[0].y > req.body.you.y) {
+            if(req.body.you.direction === 'top') {
+                res.json({
+                    command: 'turn-right'
+                });
+            }
+            if(req.body.you.direction === 'left') {
+                res.json({
                     command: 'turn-left'
                 });
             }
         }
     } else {
-        res.json( {
+        res.json({
             command: 'pass'
         });
     }
