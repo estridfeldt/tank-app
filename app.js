@@ -22,14 +22,14 @@ app.options('*', cors()); // include before other routes
 app.get('/info', function (req, res) {
     res.json(
         {
-            "name": "tired one22",
+            "name": "tired one23",
             "owner": "Channel 2"
         });
 });
 
 app.post('/command', function(req, res) {
 
-    if(req.body.enemies.length === 0) {
+    if(req.body.enemies[0] !== undefined) {
         res.json( {
             command: 'pass'
         });
