@@ -11,16 +11,16 @@ app.use(logger('dev'));
 
 // API
 app.get('/info', function (req, res) {
-    return res.json(
+    res.json(
         {
-            "name": "tired one",
+            "name": "tired one2",
             "owner": "Channel 2"
         });
 });
 
 app.post('/command', function(req, res) {
 
-    return res.json( {
+    res.json( {
         command: 'turn-left'
     });
 });
