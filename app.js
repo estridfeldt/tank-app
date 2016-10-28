@@ -22,7 +22,7 @@ app.options('*', cors()); // include before other routes
 app.get('/info', function (req, res) {
     res.json(
         {
-            "name": "tired one23",
+            "name": "tired one2343",
             "owner": "Channel 2"
         });
 });
@@ -46,11 +46,11 @@ app.post('/command', function(req, res) {
             }
         }
         if(req.body.you.y === req.body.enemies[0].y) {
-            if(req.body.you.direction === 'left' && (req.body.enemies[0].y < req.body.you.y)) {
+            if(req.body.you.direction === 'left' && (req.body.enemies[0].x < req.body.you.x)) {
                 res.json( {
                     command: 'fire'
                 });
-            } else if(req.body.you.direction === 'right' && (req.body.enemies[0].y > req.body.you.y)) {
+            } else if(req.body.you.direction === 'right' && (req.body.enemies[0].x > req.body.you.x)) {
                 res.json( {
                     command: 'fire'
                 });
